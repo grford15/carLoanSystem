@@ -9,14 +9,16 @@ class App extends Component {
     this.state = {
       vehiclePrice: 0,
       deposit: 0,
-      deliveryDate: Date.now(),
-      financeOption: 1
+      deliveryDate: new Date(),
+      financeOption: 1,
+      submitted: false
     };
 
     this.handleVehicleChange = this.handleVehicleChange.bind(this);
     this.handleDepositChange = this.handleDepositChange.bind(this);
     this.handleDateChange = this.handleDateChange.bind(this);
     this.handleFinanceChange = this.handleFinanceChange.bind(this);
+    this.handleSubmit = this.handleSubmit.bind(this);
   }
 
   handleVehicleChange(e) {
@@ -43,8 +45,19 @@ class App extends Component {
     });
   }
 
+  handleSubmit(e) {
+    e.preventDefault();
+    this.setState(prevState => ({
+      submitted: !prevState.submitted
+    }));
+  }
+
   render() {
     const { vehiclePrice, deposit, deliveryDate, financeOption } = this.state;
+
+    const repaymentAmount = vehiclePrice - deposit;
+    const repaymentTerm = financeOption * 12;
+    const monthlyAmount = repaymentAmount / repaymentTerm;
 
     return (
       <div className="App">
@@ -52,7 +65,7 @@ class App extends Component {
           <h1>Arnold Clark Loan Calculator</h1>
         </header>
 
-        <form className="form">
+        <form className="form" onSubmit={this.handleSubmit}>
           <div className="form-element">
             <label>Vehicle Price</label>
             <input
@@ -87,7 +100,26 @@ class App extends Component {
               <option value="3">3 Years</option>
             </select>
           </div>
+          <div className="form-element">
+            <button type="submit">Calculate Loan</button>
+          </div>
         </form>
+        {this.state.submitted && (
+          <ul>
+            <li>The car cost £ {this.state.vehiclePrice}</li>
+            <li>Your deposit £ {this.state.deposit}</li>
+            <li>
+              The car will be delivered {this.state.deliveryDate.toDateString()}
+            </li>
+            <li>Your monthly amount is £ {Number(monthlyAmount).toFixed(2)}</li>
+            <li>
+              Your first month will be £ {Number(monthlyAmount + 88).toFixed(2)}
+            </li>
+            <li>
+              Your last month will be £ {Number(monthlyAmount + 20).toFixed(2)}
+            </li>
+          </ul>
+        )}
       </div>
     );
   }
