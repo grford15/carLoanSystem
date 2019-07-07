@@ -4,6 +4,14 @@
   align-items: center;
 }
 
+#loan-view {
+  margin: 1em;
+}
+
+#car-view {
+  margin: 1em;
+}
+
 .form {
   display: flex;
   font-size: 1.5em

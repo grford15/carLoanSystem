@@ -10,29 +10,29 @@ const LoanView = props => {
 
   return (
     <div>
-      <table>
-        <tbody>
-          <tr>
+      <table className="loan-view-table">
+        <tbody className="loan-view-tbody">
+          <tr className="loan-view-tr">
             <th>Vehicle Price</th>
             <td>£ {Number(props.vehiclePrice).toFixed(2)}</td>
           </tr>
-          <tr>
+          <tr className="loan-view-tr">
             <th>Deposit</th>
             <td>£ {Number(props.deposit).toFixed(2)}</td>
           </tr>
-          <tr>
+          <tr className="loan-view-tr">
             <th>Months to Pay</th>
             <td>{monthsToPay}</td>
           </tr>
-          <tr>
+          <tr className="loan-view-tr">
             <th>Initial Month's Payment</th>
             <td>£ {Number(firstMonthlyPayment).toFixed(2)}</td>
           </tr>
-          <tr>
+          <tr className="loan-view-tr">
             <th>Last Month's Payment</th>
             <td>£ {Number(finalMonthlyPayment).toFixed(2)}</td>
           </tr>
-          <tr>
+          <tr className="loan-view-tr">
             <th>Monthly Payments</th>
             <td>£ {Number(monthlyPayment).toFixed(2)}</td>
           </tr>

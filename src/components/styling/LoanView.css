@@ -1,12 +1,12 @@
-table {
+loan-view-table {
     display: grid
 }
 
-tbody {
+loan-view-tbody {
     display: grid
 }
 
-tr {
+loan-view-tr {
     display: flex;
     flex-direction: column;
     justify-content: center;

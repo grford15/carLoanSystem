@@ -4,6 +4,7 @@ import "react-datepicker/dist/react-datepicker.css";
 import "./App.css";
 import LoanView from "./components/LoanView";
 import CarView from "./components/CarView";
+import axios from "axios";
 
 class App extends Component {
   constructor(props) {
@@ -13,7 +14,8 @@ class App extends Component {
       deposit: 0,
       deliveryDate: new Date(),
       financeOption: 1,
-      submitted: false
+      submitted: false,
+      searchResults: []
     };
 
     this.handleVehicleChange = this.handleVehicleChange.bind(this);
@@ -21,6 +23,16 @@ class App extends Component {
     this.handleDateChange = this.handleDateChange.bind(this);
     this.handleFinanceChange = this.handleFinanceChange.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
+  }
+
+  componentDidMount() {
+    const url =
+      "https://cors-anywhere.herokuapp.com/https://www.arnoldclark.com/used-cars/search.json";
+    axios.get(url).then(res =>
+      this.setState({
+        searchResults: res.data.searchResults
+      })
+    );
   }
 
   handleVehicleChange(e) {
@@ -55,7 +67,13 @@ class App extends Component {
   }
 
   render() {
-    const { vehiclePrice, deposit, deliveryDate, financeOption } = this.state;
+    const {
+      vehiclePrice,
+      deposit,
+      deliveryDate,
+      financeOption,
+      searchResults
+    } = this.state;
 
     return (
       <div className="App">
@@ -110,7 +128,7 @@ class App extends Component {
               deliveryDate={deliveryDate}
               financeOption={financeOption}
             />
-            <CarView />
+            <CarView searchResults={searchResults} />
           </div>
         )}
       </div>
