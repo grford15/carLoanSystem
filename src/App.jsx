@@ -2,6 +2,8 @@ import React, { Component } from "react";
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
 import "./App.css";
+import LoanView from "./components/LoanView";
+import CarView from "./components/CarView";
 
 class App extends Component {
   constructor(props) {
@@ -48,16 +50,12 @@ class App extends Component {
   handleSubmit(e) {
     e.preventDefault();
     this.setState(prevState => ({
-      submitted: !prevState.submitted
+      submitted: true
     }));
   }
 
   render() {
     const { vehiclePrice, deposit, deliveryDate, financeOption } = this.state;
-
-    const repaymentAmount = vehiclePrice - deposit;
-    const repaymentTerm = financeOption * 12;
-    const monthlyAmount = repaymentAmount / repaymentTerm;
 
     return (
       <div className="App">
@@ -105,20 +103,15 @@ class App extends Component {
           </div>
         </form>
         {this.state.submitted && (
-          <ul>
-            <li>The car cost £ {this.state.vehiclePrice}</li>
-            <li>Your deposit £ {this.state.deposit}</li>
-            <li>
-              The car will be delivered {this.state.deliveryDate.toDateString()}
-            </li>
-            <li>Your monthly amount is £ {Number(monthlyAmount).toFixed(2)}</li>
-            <li>
-              Your first month will be £ {Number(monthlyAmount + 88).toFixed(2)}
-            </li>
-            <li>
-              Your last month will be £ {Number(monthlyAmount + 20).toFixed(2)}
-            </li>
-          </ul>
+          <div className="results-container">
+            <LoanView
+              vehiclePrice={vehiclePrice}
+              deposit={deposit}
+              deliveryDate={deliveryDate}
+              financeOption={financeOption}
+            />
+            <CarView />
+          </div>
         )}
       </div>
     );

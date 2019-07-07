@@ -1,0 +1,15 @@
+table {
+    display: grid
+}
+
+tbody {
+    display: grid
+}
+
+tr {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    margin: 0.5em;
+}
