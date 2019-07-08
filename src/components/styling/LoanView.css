@@ -1,15 +1,8 @@
-loan-view-table {
-    display: grid
+.repayment-container {
+    margin-top: 1em;
+    margin-bottom: 1em;
 }
 
-loan-view-tbody {
-    display: grid
-}
-
-loan-view-tr {
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    margin: 0.5em;
+.loan-view-table {
+    width: 100%;
 }

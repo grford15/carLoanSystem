@@ -9,7 +9,7 @@ const LoanView = props => {
   const finalMonthlyPayment = monthlyPayment + 20;
 
   return (
-    <div>
+    <div className="repayment-container">
       <table className="loan-view-table">
         <tbody className="loan-view-tbody">
           <tr className="loan-view-tr">

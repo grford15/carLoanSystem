@@ -22,7 +22,9 @@ header {
 
 .form {
   display: flex;
-  font-size: 1.3em
+  font-size: 1.3em;
+  margin-top: 0.8em;
+  margin-bottom: 1em;
 }
 
 .form-element {
