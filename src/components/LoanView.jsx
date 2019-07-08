@@ -2,11 +2,39 @@ import React from "react";
 import "./styling/LoanView.css";
 
 const LoanView = props => {
-  const amountToPay = props.vehiclePrice - props.deposit;
-  const monthsToPay = props.financeOption * 12;
+
+  const { vehiclePrice, deposit, deliveryDate, financeOption } = props;
+
+  const amountToPay = vehiclePrice - deposit;
+  const monthsToPay = financeOption * 12;
   const monthlyPayment = amountToPay / monthsToPay;
   const firstMonthlyPayment = monthlyPayment + 88;
   const finalMonthlyPayment = monthlyPayment + 20;
+
+
+
+  const getFirstMonday = date => {
+    const dateObject = new Date(date);
+    dateObject.setMonth(dateObject.getMonth() + 1)
+
+    const month = dateObject.getMonth();
+    const monday = [];
+
+    dateObject.setDate(1);
+
+    while (dateObject.getDay() !== 1) {
+      dateObject.setDate(dateObject.getDate() + 1);
+    }
+
+    while (dateObject.getMonth() === month) {
+      monday.push(new Date(dateObject.getTime()));
+      dateObject.setDate(dateObject.getDate() + 7);
+    }
+
+    return monday[0];
+  };
+
+  const firstMonday = getFirstMonday(deliveryDate);
 
   return (
     <div className="repayment-container">
@@ -14,11 +42,11 @@ const LoanView = props => {
         <tbody className="loan-view-tbody">
           <tr className="loan-view-tr">
             <th>Vehicle Price</th>
-            <td>£ {Number(props.vehiclePrice).toFixed(2)}</td>
+            <td>£ {Number(vehiclePrice).toFixed(2)}</td>
           </tr>
           <tr className="loan-view-tr">
             <th>Deposit</th>
-            <td>£ {Number(props.deposit).toFixed(2)}</td>
+            <td>£ {Number(deposit).toFixed(2)}</td>
           </tr>
           <tr className="loan-view-tr">
             <th>Months to Pay</th>
@@ -38,7 +66,7 @@ const LoanView = props => {
           </tr>
           <tr className="loan-view-tr">
             <th>Payments will commence</th>
-            <td>the first monday of the following month</td>
+            <td>{firstMonday.toDateString()}</td>
           </tr>
         </tbody>
       </table>
