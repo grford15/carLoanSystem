@@ -1,0 +1,23 @@
+#car-view {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+}
+
+.no-cars-message {
+    margin-top: 2em;
+}
+
+.car-card {
+    background-color: #ffffff;
+    display: flex;
+    flex-direction: column;
+    padding: 1em;
+    align-items: baseline;
+    margin-top: 1em;
+    border-radius: 15px;
+}
+
+img {
+    width: 650px;
+}

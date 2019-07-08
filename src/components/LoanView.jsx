@@ -36,6 +36,10 @@ const LoanView = props => {
             <th>Monthly Payments</th>
             <td>£ {Number(monthlyPayment).toFixed(2)}</td>
           </tr>
+          <tr className="loan-view-tr">
+            <th>Payments will commence</th>
+            <td>the first monday of the following month</td>
+          </tr>
         </tbody>
       </table>
     </div>

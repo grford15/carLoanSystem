@@ -1,4 +1,5 @@
 import React from "react";
+import "./styling/CarView.css";
 
 const CarView = props => {
   const myMonthlyPayment =
@@ -18,9 +19,15 @@ const CarView = props => {
 
   return (
     <div id="car-view">
+      {filteredList.length < 1 && (
+        <div className="no-cars-message">
+          <p>Sorry, There are no cars that suit your monthly budget</p>
+        </div>
+      )}
       {filteredList.map((car, index) => {
         return (
           <div className="car-card" key={index}>
+            <img src={car.photos[0]} alt="car" />
             <h1>{car.title.name}</h1>
             <h3>{car.title.variant}</h3>
             <p>{car.branch.name}</p>
