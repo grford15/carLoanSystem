@@ -18,11 +18,9 @@ class App extends Component {
       searchResults: []
     };
 
-    this.handleVehicleChange = this.handleVehicleChange.bind(this);
-    this.handleDepositChange = this.handleDepositChange.bind(this);
     this.handleDateChange = this.handleDateChange.bind(this);
-    this.handleFinanceChange = this.handleFinanceChange.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
+    this.handleChange = this.handleChange.bind(this);
   }
 
   componentDidMount() {
@@ -35,15 +33,9 @@ class App extends Component {
     );
   }
 
-  handleVehicleChange(e) {
+  handleChange(e) {
     this.setState({
-      vehiclePrice: parseInt(e.target.value)
-    });
-  }
-
-  handleDepositChange(e) {
-    this.setState({
-      deposit: parseInt(e.target.value)
+      [e.target.name]: parseInt(e.target.value)
     });
   }
 
@@ -53,17 +45,11 @@ class App extends Component {
     });
   }
 
-  handleFinanceChange(e) {
-    this.setState({
-      financeOption: parseInt(e.target.value)
-    });
-  }
-
   handleSubmit(e) {
     e.preventDefault();
-    this.setState(prevState => ({
+    this.setState({
       submitted: true
-    }));
+    });
   }
 
   render() {
@@ -88,7 +74,8 @@ class App extends Component {
               type="text"
               pattern="[0-9]*"
               value={vehiclePrice}
-              onChange={this.handleVehicleChange}
+              onChange={this.handleChange}
+              name="vehiclePrice"
             />
           </div>
           <div className="form-element">
@@ -97,7 +84,8 @@ class App extends Component {
               type="text"
               pattern="[0-9]*"
               value={deposit}
-              onChange={this.handleDepositChange}
+              onChange={this.handleChange}
+              name="deposit"
             />
           </div>
           <div className="form-element">
@@ -110,14 +98,20 @@ class App extends Component {
           </div>
           <div className="form-element">
             <label>Length of Finance</label>
-            <select value={financeOption} onChange={this.handleFinanceChange}>
+            <select
+              value={financeOption}
+              onChange={this.handleChange}
+              name="financeOption"
+            >
               <option value="1">1 Year</option>
               <option value="2">2 Years</option>
               <option value="3">3 Years</option>
             </select>
           </div>
-          <div className="form-element">
-            <button type="submit">Calculate Loan</button>
+          <div id="form-btn">
+            <button type="submit" className="loan-btn">
+              Calculate Loan
+            </button>
           </div>
         </form>
         {this.state.submitted && (
@@ -128,7 +122,12 @@ class App extends Component {
               deliveryDate={deliveryDate}
               financeOption={financeOption}
             />
-            <CarView searchResults={searchResults} />
+            <CarView
+              searchResults={searchResults}
+              vehiclePrice={vehiclePrice}
+              deposit={deposit}
+              financeOption={financeOption}
+            />
           </div>
         )}
       </div>
