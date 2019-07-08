@@ -2,7 +2,6 @@ import React from "react";
 import "./styling/LoanView.css";
 
 const LoanView = props => {
-
   const { vehiclePrice, deposit, deliveryDate, financeOption } = props;
 
   const amountToPay = vehiclePrice - deposit;
@@ -11,11 +10,9 @@ const LoanView = props => {
   const firstMonthlyPayment = monthlyPayment + 88;
   const finalMonthlyPayment = monthlyPayment + 20;
 
-
-
   const getFirstMonday = date => {
     const dateObject = new Date(date);
-    dateObject.setMonth(dateObject.getMonth() + 1)
+    dateObject.setMonth(dateObject.getMonth() + 1);
 
     const month = dateObject.getMonth();
     const monday = [];
@@ -53,20 +50,20 @@ const LoanView = props => {
             <td>{monthsToPay}</td>
           </tr>
           <tr className="loan-view-tr">
-            <th>Initial Month's Payment</th>
+            <th>Payments will commence</th>
+            <td>{firstMonday.toDateString()}</td>
+          </tr>
+          <tr className="loan-view-tr">
+            <th>First Month's Payment</th>
             <td>£ {Number(firstMonthlyPayment).toFixed(2)}</td>
+          </tr>
+          <tr className="loan-view-tr">
+            <th>Monthly Payments</th>
+            <td>£ {Number(monthlyPayment).toFixed(2)} per month</td>
           </tr>
           <tr className="loan-view-tr">
             <th>Last Month's Payment</th>
             <td>£ {Number(finalMonthlyPayment).toFixed(2)}</td>
-          </tr>
-          <tr className="loan-view-tr">
-            <th>Monthly Payments</th>
-            <td>£ {Number(monthlyPayment).toFixed(2)}</td>
-          </tr>
-          <tr className="loan-view-tr">
-            <th>Payments will commence</th>
-            <td>{firstMonday.toDateString()}</td>
           </tr>
         </tbody>
       </table>
