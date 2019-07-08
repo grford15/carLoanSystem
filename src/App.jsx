@@ -15,7 +15,8 @@ class App extends Component {
       deliveryDate: new Date(),
       financeOption: 1,
       submitted: false,
-      searchResults: []
+      searchResults: [],
+      error: false
     };
 
     this.handleDateChange = this.handleDateChange.bind(this);
@@ -47,9 +48,17 @@ class App extends Component {
 
   handleSubmit(e) {
     e.preventDefault();
-    this.setState({
-      submitted: true
-    });
+    if (this.state.deposit >= this.state.vehiclePrice * 0.15) {
+      this.setState({
+        submitted: true,
+        error: false
+      });
+    } else {
+      this.setState({
+        error: true,
+        submitted: false
+      });
+    }
   }
 
   render() {
@@ -71,8 +80,7 @@ class App extends Component {
           <div className="form-element">
             <label>Vehicle Price</label>
             <input
-              type="text"
-              pattern="[0-9]*"
+              type="number"
               value={vehiclePrice}
               onChange={this.handleChange}
               name="vehiclePrice"
@@ -81,8 +89,7 @@ class App extends Component {
           <div className="form-element">
             <label>Deposit Amount</label>
             <input
-              type="text"
-              pattern="[0-9]*"
+              type="number"
               value={deposit}
               onChange={this.handleChange}
               name="deposit"
@@ -114,6 +121,11 @@ class App extends Component {
             </button>
           </div>
         </form>
+        {this.state.error && (
+          <div className="error-message">
+            <p>The deposit must be at least £{vehiclePrice * 0.15}</p>
+          </div>
+        )}
         {this.state.submitted && (
           <div className="results-container">
             <LoanView
